@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChemPath Mastery — MLSCN Clinical Chemistry & Histopathology Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#132330;
+    --ink-soft:#1e3644;
+    --paper:#F4EFE3;
+    --paper-dim:#e9e2d0;
+    --brick:#B5451B;
+    --brick-dark:#8c3414;
+    --prussian:#1F4E5F;
+    --amber:#C68E17;
+    --line: rgba(19,35,48,0.16);
+    --line-light: rgba(244,239,227,0.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:64px 0 48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:6px;
+    background:linear-gradient(90deg,
+      #d8c98a 0 16%, #C68E17 16% 32%, #d17a3c 32% 48%,
+      var(--brick) 48% 64%, #6b3a1f 64% 80%, #1a1a1a 80% 100%);
+  }
+  .req-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .req-label::before{
+    content:"";
+    width:8px;height:8px;border-radius:50%;
+    background:var(--brick);
+    box-shadow:0 0 0 3px rgba(181,69,27,0.25);
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.1rem, 7vw, 3.4rem);
+    line-height:1.05;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  h1 em{
+    font-style:italic;
+    color:var(--amber);
+  }
+  .hero-sub{
+    font-size:16px;
+    line-height:1.6;
+    max-width:52ch;
+    color:rgba(244,239,227,0.82);
+    margin:0 0 28px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:10px 22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:rgba(244,239,227,0.7);
+    border-top:1px solid var(--line-light);
+    padding-top:16px;
+  }
+  .hero-meta b{color:var(--paper); font-weight:600;}
+  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; margin:28px 0 8px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    font-weight:500;
+    letter-spacing:.02em;
+    border-radius:3px;
+    text-decoration:none;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:active{ transform:scale(0.98); }
+  .btn-primary{ background:var(--brick); color:var(--paper); }
+  .btn-primary:hover{ background:var(--brick-dark); }
+  .btn-ghost{ background:transparent; color:var(--paper); border-color:var(--line-light); }
+  .btn-ghost:hover{ background:rgba(244,239,227,0.08); }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding:56px 0; border-bottom:1px solid var(--line); }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--brick);
+    margin:0 0 10px;
+  }
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(1.5rem,4vw,2rem);
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  p.lede{ max-width:62ch; line-height:1.65; color:#3a3f44; }
+
+  /* ---------- METHOD / 4-STAGE STRUCTURE ---------- */
+  .method-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    margin-top:36px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .method-step{
+    padding:22px 18px;
+    border-right:1px solid var(--line);
+    background:var(--paper);
+    position:relative;
+  }
+  .method-step:last-child{border-right:none;}
+  .method-step .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--amber);
+    letter-spacing:.1em;
+  }
+  .method-step h3{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:600;
+    margin:8px 0 8px;
+  }
+  .method-step p{ font-size:13.5px; line-height:1.5; color:#4a4f54; margin:0; }
+  @media (max-width:760px){
+    .method-grid{ grid-template-columns:1fr 1fr; }
+    .method-step{ border-bottom:1px solid var(--line); }
+    .method-step:nth-child(2){ border-right:none; }
+    .method-step:nth-child(4){ border-right:none; }
+  }
+
+  /* ---------- TOPIC TABS ---------- */
+  .tabs{
+    display:flex; gap:8px; margin:32px 0 22px; flex-wrap:wrap;
+  }
+  .tab{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:8px 14px;
+    border-radius:20px 20px 2px 2px;
+    border:1px solid var(--line);
+    background:var(--paper-dim);
+    color:var(--ink);
+  }
+  .tab.chem{ border-color:var(--prussian); color:var(--prussian); }
+  .tab.histo{ border-color:var(--brick); color:var(--brick); }
+
+  .topic-cols{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  @media (max-width:700px){ .topic-cols{ grid-template-columns:1fr; } }
+  .topic-col h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin:0 0 12px;
+    padding-bottom:8px;
+    border-bottom:2px solid;
+  }
+  .topic-col.chem h4{ color:var(--prussian); border-color:var(--prussian); }
+  .topic-col.histo h4{ color:var(--brick); border-color:var(--brick); }
+  .topic-col ul{ margin:0; padding:0; list-style:none; }
+  .topic-col li{
+    font-size:14.5px; line-height:1.5;
+    padding:9px 0;
+    border-bottom:1px dashed var(--line);
+    color:#333;
+  }
+  .topic-col li span{ color:#8a8a8a; font-family:'IBM Plex Mono', monospace; font-size:11.5px; margin-right:8px; }
+
+  /* ---------- SAMPLE CARD ---------- */
+  .sample-card{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:6px;
+    padding:28px 26px;
+    margin-top:30px;
+    position:relative;
+  }
+  .sample-card .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--amber);
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .sample-card h5{
+    font-family:'Fraunces', serif;
+    font-size:19px;
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  .sample-card .def-label{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink);
+    background:var(--amber);
+    padding:2px 8px;
+    border-radius:2px;
+    margin-bottom:8px;
+  }
+  .sample-card p{ font-size:14px; line-height:1.65; color:rgba(244,239,227,0.88); margin:0 0 16px; }
+  .sample-card p:last-child{ margin-bottom:0; }
+
+  /* ---------- STAIN STRIP (signature) ---------- */
+  .stain-strip{
+    margin-top:34px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .stain-row{
+    display:flex; align-items:center;
+    padding:14px 18px;
+    border-bottom:1px solid var(--line);
+    gap:14px;
+  }
+  .stain-row:last-child{ border-bottom:none; }
+  .stain-chip{
+    width:14px; height:14px; border-radius:50%;
+    flex:0 0 auto;
+    box-shadow:0 0 0 3px rgba(0,0,0,0.05);
+  }
+  .stain-row .stain-text{ font-size:13.5px; color:#333; }
+  .stain-row .stain-text b{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; }
+
+  /* ---------- PRICING ---------- */
+  .price-card{
+    display:flex; flex-wrap:wrap; gap:28px;
+    background:var(--paper-dim);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px;
+    margin-top:30px;
+  }
+  .price-left{ flex:1 1 220px; }
+  .price-amount{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:2.4rem;
+    color:var(--brick);
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .price-amount .cur{ font-size:1.1rem; vertical-align:top; }
+  .price-note{ font-size:13px; color:#555; }
+  .price-right{ flex:1 1 260px; }
+  .step-list{ margin:0; padding:0; list-style:none; counter-reset:step; }
+  .step-list li{
+    counter-increment:step;
+    display:flex; gap:12px;
+    font-size:14px; line-height:1.5;
+    padding:9px 0;
+  }
+  .step-list li::before{
+    content:counter(step);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    width:22px; height:22px; border-radius:50%;
+    background:var(--ink); color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    flex:0 0 auto;
+  }
+  .bank-box{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:16px 18px;
+    border-radius:4px;
+    margin:18px 0;
+    line-height:1.9;
+  }
+  .bank-box .k{ color:var(--amber); }
+  .placeholder{ color:#e07a3f; font-style:italic; }
+
+  /* ---------- FAQ ---------- */
+  details{
+    border-bottom:1px solid var(--line);
+    padding:16px 0;
+  }
+  summary{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:16px;
+    cursor:pointer;
+    list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  summary::-webkit-details-marker{ display:none; }
+  summary::after{ content:"+"; font-family:'IBM Plex Mono',monospace; color:var(--brick); font-size:20px; }
+  details[open] summary::after{ content:"–"; }
+  details p{ margin:12px 0 0; font-size:14px; line-height:1.6; color:#444; max-width:60ch; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    color:rgba(244,239,227,0.6);
+    padding:34px 0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    text-align:center;
+  }
+  footer b{ color:var(--paper); }
+
+  /* sticky whatsapp */
+  .float-wa{
+    position:fixed; right:18px; bottom:18px;
+    background:#1F4E5F; color:var(--paper);
+    padding:13px 18px;
+    border-radius:30px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    display:flex; align-items:center; gap:8px;
+    z-index:50;
+  }
+  .float-wa:hover{ background:#28647a; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="req-label">MLSCN Board Exam Prep · Chemical Pathology & Histopathology</div>
+    <h1>ChemPath <em>Mastery</em></h1>
+    <p class="hero-sub">A combined Clinical Chemistry &amp; Histopathology study guide, built directly from five years of MLSCN board papers — every answer opens with the definition, then walks through the principle, the procedure, and why it matters at the bench.</p>
+    <div class="cta-row">
+      <a href="#pricing" class="btn btn-primary">Get the guide — ₦<span class="placeholder">1,500</span></a>
+      <a href="#inside" class="btn btn-ghost">See what's inside</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>Coverage</b> · 2020 – 2024 papers</span>
+      <span><b>Format</b> · PDF, delivered digitally</span>
+      <span><b>Built for</b> · MLSCN candidates in Nigeria</span>
+    </div>
+  </div>
+</div>
+
+<section id="inside">
+  <div class="wrap">
+    <p class="eyebrow">How every answer is built</p>
+    <h2>One shape, every time — so you always know where to look.</h2>
+    <p class="lede">Board exams reward consistency. Every question in ChemPath Mastery follows the same four-stage answer, whether it's a one-line "define" or a full "discuss the principle and procedure."</p>
+    <div class="method-grid">
+      <div class="method-step">
+        <div class="num">01</div>
+        <h3>Definition</h3>
+        <p>The key term, stated first — a usable answer on its own if time is short in the hall.</p>
+      </div>
+      <div class="method-step">
+        <div class="num">02</div>
+        <h3>Principle / Discussion</h3>
+        <p>The reasoning or mechanism, in plain language rather than textbook jargon.</p>
+      </div>
+      <div class="method-step">
+        <div class="num">03</div>
+        <h3>Materials &amp; Procedure</h3>
+        <p>For bench techniques — materials listed first, then numbered steps in the order you'd actually perform them.</p>
+      </div>
+      <div class="method-step">
+        <div class="num">04</div>
+        <h3>Clinical Significance</h3>
+        <p>Why it matters for a real patient — usually the part examiners probe further in viva.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Topic coverage</p>
+    <h2>Every past-question topic, sorted by subject.</h2>
+    <div class="tabs">
+      <span class="tab chem">Clinical Chemistry</span>
+      <span class="tab histo">Histopathology</span>
+    </div>
+    <div class="topic-cols">
+      <div class="topic-col chem">
+        <h4>Clinical Chemistry</h4>
+        <ul>
+          <li><span>01</span>Urea formation &amp; estimation (diacetyl monoxime, urease/Berthelot)</li>
+          <li><span>02</span>Blood glucose methods &amp; the Glucose Tolerance Test</li>
+          <li><span>03</span>Bilirubin metabolism &amp; the bilirubin cycle</li>
+          <li><span>04</span>Urinalysis, haematuria &amp; abnormal urine components</li>
+          <li><span>05</span>Quality control, standards &amp; control samples</li>
+          <li><span>06</span>Liver function tests &amp; renal threshold</li>
+          <li><span>07</span>Bence Jones protein detection</li>
+          <li><span>08</span>Beer's Law, Benedict's test &amp; occult blood</li>
+          <li><span>09</span>Flame photometry &amp; electrolytes</li>
+          <li><span>10</span>Buffers, distilled vs. deionized water</li>
+        </ul>
+      </div>
+      <div class="topic-col histo">
+        <h4>Histopathology</h4>
+        <ul>
+          <li><span>01</span>Tissue processing &amp; bone specimen handling</li>
+          <li><span>02</span>Fixatives — simple &amp; compound, with examples</li>
+          <li><span>03</span>Decalcification &amp; end-point testing</li>
+          <li><span>04</span>Ziehl-Neelsen &amp; Papanicolaou staining</li>
+          <li><span>05</span>Microtome types, care &amp; common faults</li>
+          <li><span>06</span>Embedding, mounting &amp; mould types</li>
+          <li><span>07</span>Autolysis, putrefaction &amp; prevention</li>
+          <li><span>08</span>Mordants, blueing &amp; regressive staining</li>
+          <li><span>09</span>Biopsy vs. autopsy; mitosis vs. meiosis</li>
+          <li><span>10</span>Automatic tissue processors &amp; vacuum impregnation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sample-card">
+      <div class="tag">Sample page — Paper 2, 2020</div>
+      <h5>Q3(a): Quality Control</h5>
+      <span class="def-label">Definition</span>
+      <p>Quality Control (QC) is the planned system of statistical and procedural checks built into everyday testing to confirm that patient results can be trusted.</p>
+      <p><b>Discussion:</b> Control materials of known value run alongside patient samples every day, plotted on control charts and checked against rules (like Westgard's) that flag drifting or erratic results before they reach a patient's file. Most labs run at least a normal and an abnormal control level — some run all three.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Why this guide</p>
+    <h2>Written the way you'll actually revise.</h2>
+    <p class="lede">Built around active recall and spaced repetition, not a wall of text to re-read once and forget. Comes with a 4-week study rhythm splitting Clinical Chemistry and Histopathology papers by week, so nothing gets left for the night before.</p>
+    <div class="stain-strip">
+      <div class="stain-row"><span class="stain-chip" style="background:#B5451B"></span><span class="stain-text"><b>Active recall</b> — cover the answer, reconstruct it, then check yourself against the page.</span></div>
+      <div class="stain-row"><span class="stain-chip" style="background:#1F4E5F"></span><span class="stain-text"><b>Spaced repetition</b> — 10–15 minutes revisiting last week before starting new material.</span></div>
+      <div class="stain-row"><span class="stain-chip" style="background:#C68E17"></span><span class="stain-text"><b>Timed past questions</b> — attempt full papers with a stopwatch, exactly as it feels in the hall.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <p class="eyebrow">Get your copy</p>
+    <h2>Pay by transfer, send your screenshot, get the PDF.</h2>
+    <div class="price-card">
+      <div class="price-left">
+        <div class="price-amount"><span class="cur">₦</span><span class="placeholder">1,500</span></div>
+        <div class="price-note">One-time payment · PDF delivered to you directly · No subscription.</div>
+        <div class="bank-box">
+          <div><span class="k">Bank</span> — Opay</div>
+          <div><span class="k">Account name</span> — Usman Langa Maiyaki</div>
+          <div><span class="k">Account number</span> — 9134018584</div>
+        </div>
+        <div class="price-note">Transfer the exact amount above, then follow the steps to your right.</div>
+      </div>
+      <div class="price-right">
+        <ul class="step-list">
+          <li>Make the transfer using the Opay details shown.</li>
+          <li>Take a screenshot of the successful transfer.</li>
+          <li>Send the screenshot on WhatsApp with your full name.</li>
+          <li>Your PDF is sent to you as soon as payment is confirmed — usually within a few hours.</li>
+        </ul>
+        <a href="https://wa.me/2349063566251?text=Hi%2C%20I%27ve%20paid%20for%20ChemPath%20Mastery%20and%20I%27m%20sending%20my%20payment%20screenshot." class="btn btn-primary" style="margin-top:14px;">Send screenshot on WhatsApp</a>
+
+        <div style="margin-top:22px; padding-top:18px; border-top:1px dashed var(--line);">
+          <label for="proof-upload" style="display:block; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#555; margin-bottom:8px;">Upload your payment screenshot to unlock the download</label>
+          <input type="file" id="proof-upload" accept="image/*" style="font-family:'IBM Plex Sans', sans-serif; font-size:13px;">
+          <div id="download-locked" class="mono" style="margin-top:14px; font-size:12.5px; color:#999;">🔒 Download link unlocks once a screenshot is uploaded above.</div>
+          <a id="download-link" href="https://drive.google.com/uc?export=download&id=1J1q_IbDgZ6sKcBsVm14aLwXAxpxZ6kkh" class="btn btn-ghost" style="margin-top:10px; border-color:var(--ink); color:var(--ink); display:none;">Download PDF</a>
+        </div>
+        <script>
+          document.getElementById('proof-upload').addEventListener('change', function(e){
+            if(e.target.files && e.target.files.length > 0){
+              document.getElementById('download-locked').style.display = 'none';
+              document.getElementById('download-link').style.display = 'inline-flex';
+            }
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2>Before you pay</h2>
+    <details open>
+      <summary>How do I receive the PDF after paying?</summary>
+      <p>Send your payment screenshot to the WhatsApp number above along with your full name. Once your payment is confirmed, the PDF is sent directly to you — usually within a few hours.</p>
+    </details>
+    <details>
+      <summary>Is this a physical book or a digital file?</summary>
+      <p>ChemPath Mastery is delivered as a digital PDF you can read on your phone, tablet, or laptop — no printing or shipping required.</p>
+    </details>
+    <details>
+      <summary>Which exam years does it cover?</summary>
+      <p>Past questions and worked answers from the 2020 through 2024 MLSCN Clinical Chemistry and Histopathology papers, cross-referenced against past-question sources.</p>
+    </details>
+    <details>
+      <summary>What if my payment isn't confirmed quickly?</summary>
+      <p>Message the WhatsApp number with your screenshot and full name — if you don't hear back within a reasonable time, follow up on the same chat.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b>ChemPath Mastery</b> — MLSCN Clinical Chemistry &amp; Histopathology Combined Study Guide</div>
+    <div style="margin-top:6px;">A personal study companion, cross-referenced against past-question sources · Not affiliated with MLSCN</div>
+  </div>
+</footer>
+
+<a href="https://wa.me/2349063566251" class="float-wa">💬 WhatsApp</a>
+
+</body>
+</html>
