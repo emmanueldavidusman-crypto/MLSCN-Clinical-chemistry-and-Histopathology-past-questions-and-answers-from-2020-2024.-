@@ -3,514 +3,532 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChemPath Mastery — MLSCN Clinical Chemistry & Histopathology Guide</title>
+<title>ChemPath Mastery — MLSCN Clinical Chemistry &amp; Histopathology Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#132330;
-    --ink-soft:#1e3644;
-    --paper:#F4EFE3;
-    --paper-dim:#e9e2d0;
-    --brick:#B5451B;
-    --brick-dark:#8c3414;
-    --prussian:#1F4E5F;
-    --amber:#C68E17;
-    --line: rgba(19,35,48,0.16);
-    --line-light: rgba(244,239,227,0.22);
+    --navy: #101a2e;
+    --navy-deep: #0a1220;
+    --panel: #16223b;
+    --panel-line: #26344f;
+    --paper: #f4f2ec;
+    --eosin: #e0567e;
+    --eosin-soft: #f2a8bf;
+    --haem: #6a5acd;
+    --haem-deep: #4c3f9e;
+    --text-hi: #f4f2ec;
+    --text-mid: #b9c2d6;
+    --text-dim: #7c869c;
+    --success: #4fbf8c;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--navy);
+    color:var(--text-hi);
+    font-family:'Source Sans 3', sans-serif;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  a{color:inherit;}
-  .mono{font-family:'IBM Plex Mono', monospace;}
-  .wrap{max-width:960px; margin:0 auto; padding:0 24px;}
-
-  /* ---------- HERO ---------- */
-  .hero{
-    background:var(--ink);
-    color:var(--paper);
-    padding:64px 0 48px;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero::after{
-    content:"";
-    position:absolute; left:0; right:0; bottom:0; height:6px;
-    background:linear-gradient(90deg,
-      #d8c98a 0 16%, #C68E17 16% 32%, #d17a3c 32% 48%,
-      var(--brick) 48% 64%, #6b3a1f 64% 80%, #1a1a1a 80% 100%);
-  }
-  .req-label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--amber);
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:22px;
-  }
-  .req-label::before{
-    content:"";
-    width:8px;height:8px;border-radius:50%;
-    background:var(--brick);
-    box-shadow:0 0 0 3px rgba(181,69,27,0.25);
-  }
-  h1{
+  h1,h2,h3{
     font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:clamp(2.1rem, 7vw, 3.4rem);
-    line-height:1.05;
-    margin:0 0 14px;
-    letter-spacing:-0.01em;
+    line-height:1.15;
+    margin:0 0 .4em;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--eosin-soft);
+    display:flex;align-items:center;gap:.6em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;height:1px;
+    background:var(--eosin-soft);
+    display:inline-block;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    padding:64px 0 40px;
+    overflow:hidden;
+    border-bottom:1px solid var(--panel-line);
+  }
+  .stain-field{
+    position:absolute; inset:0;
+    z-index:0;
+    opacity:.55;
+    background:
+      radial-gradient(closest-side at 78% 8%, var(--eosin) 0%, transparent 70%),
+      radial-gradient(closest-side at 100% 45%, var(--haem) 0%, transparent 65%);
+    filter:blur(40px);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:1;}
+  .brand-row{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:40px;
+  }
+  .brand{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.78rem;
+    letter-spacing:.08em;
+    color:var(--text-mid);
+  }
+  .brand b{color:var(--text-hi);}
+  .tg-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    color:var(--text-hi);
+    text-decoration:none;
+    border:1px solid var(--panel-line);
+    padding:7px 12px;
+    border-radius:100px;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:border-color .2s, background .2s;
+  }
+  .tg-btn:hover{border-color:var(--eosin-soft); background:rgba(224,86,126,.08);}
+  h1{
+    font-size:clamp(2.1rem, 6vw, 3.1rem);
+    letter-spacing:-.01em;
+    margin-top:14px;
   }
   h1 em{
     font-style:italic;
-    color:var(--amber);
+    background:linear-gradient(100deg, var(--eosin) 0%, var(--haem) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
   }
   .hero-sub{
-    font-size:16px;
-    line-height:1.6;
+    font-size:1.05rem;
+    color:var(--text-mid);
     max-width:52ch;
-    color:rgba(244,239,227,0.82);
-    margin:0 0 28px;
+    margin:14px 0 26px;
   }
-  .hero-meta{
-    display:flex; flex-wrap:wrap; gap:10px 22px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12.5px;
-    color:rgba(244,239,227,0.7);
-    border-top:1px solid var(--line-light);
-    padding-top:16px;
+  .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;}
+  .badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    color:var(--text-mid);
+    border:1px solid var(--panel-line);
+    padding:6px 11px;
+    border-radius:100px;
+    display:inline-flex;align-items:center;gap:6px;
   }
-  .hero-meta b{color:var(--paper); font-weight:600;}
-  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; margin:28px 0 8px; }
-  .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:13px 22px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13.5px;
-    font-weight:500;
-    letter-spacing:.02em;
-    border-radius:3px;
-    text-decoration:none;
-    cursor:pointer;
-    border:1px solid transparent;
-    transition:transform .15s ease, background .15s ease;
+  .badge.social{
+    color:var(--success);
+    border-color:rgba(79,191,140,.35);
+    background:rgba(79,191,140,.08);
   }
-  .btn:active{ transform:scale(0.98); }
-  .btn-primary{ background:var(--brick); color:var(--paper); }
-  .btn-primary:hover{ background:var(--brick-dark); }
-  .btn-ghost{ background:transparent; color:var(--paper); border-color:var(--line-light); }
-  .btn-ghost:hover{ background:rgba(244,239,227,0.08); }
+  .dot{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;}
+  .pulse{animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
 
-  /* ---------- SECTION SHARED ---------- */
-  section{ padding:56px 0; border-bottom:1px solid var(--line); }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--brick);
-    margin:0 0 10px;
-  }
-  h2{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:clamp(1.5rem,4vw,2rem);
-    margin:0 0 18px;
-    letter-spacing:-0.01em;
-  }
-  p.lede{ max-width:62ch; line-height:1.65; color:#3a3f44; }
-
-  /* ---------- METHOD / 4-STAGE STRUCTURE ---------- */
-  .method-grid{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
-    margin-top:36px;
-    border:1px solid var(--line);
-    border-radius:4px;
+  /* ===== SPECIMEN SLIDE (signature element) ===== */
+  .slide-card{
+    margin-top:34px;
+    border:1px solid var(--panel-line);
+    border-radius:14px;
+    background:var(--panel);
     overflow:hidden;
+    position:relative;
   }
-  .method-step{
-    padding:22px 18px;
-    border-right:1px solid var(--line);
+  .slide-glass{
+    height:120px;
+    position:relative;
+    background:
+      linear-gradient(90deg, rgba(244,242,236,.06) 0 1px, transparent 1px 24px) repeat-x,
+      linear-gradient(160deg, var(--haem-deep) 0%, var(--eosin) 55%, #d9486e 100%);
+    background-size: 24px 100%, 100% 100%;
+  }
+  .slide-label{
+    position:absolute; left:16px; bottom:14px;
     background:var(--paper);
-    position:relative;
+    color:var(--navy-deep);
+    padding:8px 12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.68rem;
+    line-height:1.5;
+    border-radius:2px;
+    box-shadow:0 6px 18px rgba(0,0,0,.35);
   }
-  .method-step:last-child{border-right:none;}
-  .method-step .num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:var(--amber);
-    letter-spacing:.1em;
+  .slide-label b{display:block;font-size:.74rem;}
+  .slide-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 18px;
   }
-  .method-step h3{
+  .slide-meta .price{
     font-family:'Fraunces', serif;
-    font-size:17px;
-    font-weight:600;
-    margin:8px 0 8px;
+    font-size:1.9rem;
+    color:var(--text-hi);
   }
-  .method-step p{ font-size:13.5px; line-height:1.5; color:#4a4f54; margin:0; }
-  @media (max-width:760px){
-    .method-grid{ grid-template-columns:1fr 1fr; }
-    .method-step{ border-bottom:1px solid var(--line); }
-    .method-step:nth-child(2){ border-right:none; }
-    .method-step:nth-child(4){ border-right:none; }
-  }
-
-  /* ---------- TOPIC TABS ---------- */
-  .tabs{
-    display:flex; gap:8px; margin:32px 0 22px; flex-wrap:wrap;
-  }
-  .tab{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    padding:8px 14px;
-    border-radius:20px 20px 2px 2px;
-    border:1px solid var(--line);
-    background:var(--paper-dim);
-    color:var(--ink);
-  }
-  .tab.chem{ border-color:var(--prussian); color:var(--prussian); }
-  .tab.histo{ border-color:var(--brick); color:var(--brick); }
-
-  .topic-cols{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
-  @media (max-width:700px){ .topic-cols{ grid-template-columns:1fr; } }
-  .topic-col h4{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    margin:0 0 12px;
-    padding-bottom:8px;
-    border-bottom:2px solid;
-  }
-  .topic-col.chem h4{ color:var(--prussian); border-color:var(--prussian); }
-  .topic-col.histo h4{ color:var(--brick); border-color:var(--brick); }
-  .topic-col ul{ margin:0; padding:0; list-style:none; }
-  .topic-col li{
-    font-size:14.5px; line-height:1.5;
-    padding:9px 0;
-    border-bottom:1px dashed var(--line);
-    color:#333;
-  }
-  .topic-col li span{ color:#8a8a8a; font-family:'IBM Plex Mono', monospace; font-size:11.5px; margin-right:8px; }
-
-  /* ---------- SAMPLE CARD ---------- */
-  .sample-card{
-    background:var(--ink);
-    color:var(--paper);
-    border-radius:6px;
-    padding:28px 26px;
-    margin-top:30px;
-    position:relative;
-  }
-  .sample-card .tag{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:var(--amber);
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    margin-bottom:14px;
-  }
-  .sample-card h5{
-    font-family:'Fraunces', serif;
-    font-size:19px;
-    font-weight:600;
-    margin:0 0 14px;
-  }
-  .sample-card .def-label{
+  .slide-meta .price sup{font-size:.9rem;color:var(--text-mid);font-weight:400;}
+  .cta{
     display:inline-block;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
+    background:linear-gradient(100deg, var(--eosin), var(--haem));
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    font-size:.92rem;
+    padding:12px 22px;
+    border-radius:9px;
+    border:none;
+    cursor:pointer;
+    transition:transform .15s, box-shadow .15s;
+    box-shadow:0 8px 22px rgba(224,86,126,.25);
+  }
+  .cta:hover{transform:translateY(-1px); box-shadow:0 10px 26px rgba(224,86,126,.35);}
+
+  /* ===== SECTIONS ===== */
+  section{padding:52px 0;border-bottom:1px solid var(--panel-line);}
+  section:last-of-type{border-bottom:none;}
+  .section-title{font-size:1.5rem;margin-bottom:6px;}
+  .section-note{color:var(--text-dim);font-size:.92rem;margin-bottom:28px;}
+
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:560px){.feature-grid{grid-template-columns:1fr;}}
+  .feature{
+    border:1px solid var(--panel-line);
+    border-radius:10px;
+    padding:16px 18px;
+    background:var(--panel);
+  }
+  .feature .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.66rem;
     letter-spacing:.08em;
     text-transform:uppercase;
-    color:var(--ink);
-    background:var(--amber);
-    padding:2px 8px;
-    border-radius:2px;
-    margin-bottom:8px;
-  }
-  .sample-card p{ font-size:14px; line-height:1.65; color:rgba(244,239,227,0.88); margin:0 0 16px; }
-  .sample-card p:last-child{ margin-bottom:0; }
-
-  /* ---------- STAIN STRIP (signature) ---------- */
-  .stain-strip{
-    margin-top:34px;
-    border:1px solid var(--line);
-    border-radius:4px;
-    overflow:hidden;
-  }
-  .stain-row{
-    display:flex; align-items:center;
-    padding:14px 18px;
-    border-bottom:1px solid var(--line);
-    gap:14px;
-  }
-  .stain-row:last-child{ border-bottom:none; }
-  .stain-chip{
-    width:14px; height:14px; border-radius:50%;
-    flex:0 0 auto;
-    box-shadow:0 0 0 3px rgba(0,0,0,0.05);
-  }
-  .stain-row .stain-text{ font-size:13.5px; color:#333; }
-  .stain-row .stain-text b{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; }
-
-  /* ---------- PRICING ---------- */
-  .price-card{
-    display:flex; flex-wrap:wrap; gap:28px;
-    background:var(--paper-dim);
-    border:1px solid var(--line);
-    border-radius:6px;
-    padding:28px;
-    margin-top:30px;
-  }
-  .price-left{ flex:1 1 220px; }
-  .price-amount{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:2.4rem;
-    color:var(--brick);
-    line-height:1;
+    color:var(--eosin-soft);
     margin-bottom:6px;
+    display:block;
   }
-  .price-amount .cur{ font-size:1.1rem; vertical-align:top; }
-  .price-note{ font-size:13px; color:#555; }
-  .price-right{ flex:1 1 260px; }
-  .step-list{ margin:0; padding:0; list-style:none; counter-reset:step; }
-  .step-list li{
-    counter-increment:step;
-    display:flex; gap:12px;
-    font-size:14px; line-height:1.5;
-    padding:9px 0;
-  }
-  .step-list li::before{
-    content:counter(step);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    width:22px; height:22px; border-radius:50%;
-    background:var(--ink); color:var(--paper);
-    display:flex; align-items:center; justify-content:center;
-    flex:0 0 auto;
-  }
-  .bank-box{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13.5px;
-    background:var(--ink);
-    color:var(--paper);
-    padding:16px 18px;
-    border-radius:4px;
-    margin:18px 0;
-    line-height:1.9;
-  }
-  .bank-box .k{ color:var(--amber); }
-  .placeholder{ color:#e07a3f; font-style:italic; }
+  .feature p{margin:0;color:var(--text-mid);font-size:.9rem;}
+  .feature h4{margin:0 0 6px;font-family:'Source Sans 3',sans-serif;font-weight:600;font-size:1rem;color:var(--text-hi);}
 
-  /* ---------- FAQ ---------- */
-  details{
-    border-bottom:1px solid var(--line);
-    padding:16px 0;
+  .sample-card{
+    border:1px solid var(--panel-line);
+    border-radius:10px;
+    background:var(--navy-deep);
+    padding:20px 22px;
+    margin-top:20px;
   }
-  summary{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:16px;
+  .sample-card .q{color:var(--eosin-soft);font-family:'JetBrains Mono',monospace;font-size:.75rem;margin-bottom:8px;}
+  .sample-card .def{color:var(--text-mid);font-size:.92rem;}
+  .sample-card .def b{color:var(--text-hi);}
+
+  /* ===== PAYMENT ===== */
+  .pay-card{
+    border:1px solid var(--panel-line);
+    border-radius:14px;
+    background:var(--panel);
+    padding:24px;
+  }
+  .pay-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 0;
+    border-bottom:1px dashed var(--panel-line);
+  }
+  .pay-row:last-child{border-bottom:none;}
+  .pay-row .k{color:var(--text-dim);font-size:.8rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;}
+  .pay-row .v{font-size:1rem;font-weight:600;}
+  .acct-num{
+    display:flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:1.15rem;
+    letter-spacing:.03em;
+  }
+  .copy-btn{
+    background:var(--navy-deep);
+    border:1px solid var(--panel-line);
+    color:var(--text-hi);
+    font-size:.7rem;
+    font-family:'JetBrains Mono',monospace;
+    padding:6px 10px;
+    border-radius:6px;
     cursor:pointer;
-    list-style:none;
-    display:flex; justify-content:space-between; align-items:center;
+    transition:border-color .2s,color .2s;
   }
-  summary::-webkit-details-marker{ display:none; }
-  summary::after{ content:"+"; font-family:'IBM Plex Mono',monospace; color:var(--brick); font-size:20px; }
-  details[open] summary::after{ content:"–"; }
-  details p{ margin:12px 0 0; font-size:14px; line-height:1.6; color:#444; max-width:60ch; }
+  .copy-btn:hover{border-color:var(--eosin-soft);}
+  .copy-btn.copied{color:var(--success);border-color:var(--success);}
 
-  /* ---------- FOOTER ---------- */
-  footer{
-    background:var(--ink);
-    color:rgba(244,239,227,0.6);
-    padding:34px 0;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
+  .steps{margin-top:20px;padding-left:0;list-style:none;}
+  .steps li{
+    display:flex;gap:12px;
+    font-size:.9rem;color:var(--text-mid);
+    margin-bottom:10px;
+  }
+  .steps li .n{
+    flex:none;width:22px;height:22px;border-radius:50%;
+    background:var(--navy-deep);border:1px solid var(--panel-line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--eosin-soft);
+  }
+
+  /* ===== UNLOCK WIDGET ===== */
+  .unlock-card{
+    border:1px solid var(--panel-line);
+    border-radius:14px;
+    background:var(--panel);
+    padding:24px;
+    margin-top:18px;
+  }
+  .upload-zone{
+    border:1.5px dashed var(--panel-line);
+    border-radius:10px;
+    padding:26px 16px;
     text-align:center;
+    cursor:pointer;
+    position:relative;
+    transition:border-color .2s, background .2s;
   }
-  footer b{ color:var(--paper); }
+  .upload-zone:hover{border-color:var(--eosin-soft); background:rgba(224,86,126,.05);}
+  .upload-zone input[type=file]{
+    position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+  }
+  .upload-zone .icon{font-size:1.6rem;margin-bottom:8px;}
+  .upload-zone .txt{font-size:.88rem;color:var(--text-mid);}
+  .upload-zone .txt b{color:var(--text-hi);}
+  .file-name{
+    margin-top:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;
+    color:var(--success);
+    display:none;
+  }
 
-  /* sticky whatsapp */
-  .float-wa{
-    position:fixed; right:18px; bottom:18px;
-    background:#1F4E5F; color:var(--paper);
-    padding:13px 18px;
-    border-radius:30px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    text-decoration:none;
-    box-shadow:0 6px 18px rgba(0,0,0,0.25);
-    display:flex; align-items:center; gap:8px;
-    z-index:50;
+  .verify-strip{
+    display:none;
+    align-items:center;gap:10px;
+    margin-top:16px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    color:var(--text-mid);
   }
-  .float-wa:hover{ background:#28647a; }
+  .spinner{
+    width:14px;height:14px;border-radius:50%;
+    border:2px solid var(--panel-line);
+    border-top-color:var(--eosin-soft);
+    animation:spin .7s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .unlock-panel{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height .6s ease, opacity .5s ease .1s;
+  }
+  .unlock-panel.open{
+    max-height:220px;
+    opacity:1;
+  }
+  .unlock-panel-inner{
+    margin-top:18px;
+    padding:18px;
+    border-radius:10px;
+    background:linear-gradient(120deg, rgba(224,86,126,.12), rgba(106,90,205,.12));
+    border:1px solid rgba(224,86,126,.3);
+  }
+  .unlock-panel-inner .ok{
+    display:flex;align-items:center;gap:8px;
+    color:var(--success);
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    margin-bottom:10px;
+  }
+  .download-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--text-hi);
+    color:var(--navy-deep);
+    text-decoration:none;
+    font-weight:700;
+    font-size:.9rem;
+    padding:11px 20px;
+    border-radius:8px;
+    transition:transform .15s;
+  }
+  .download-btn:hover{transform:translateY(-1px);}
+  .unlock-panel-inner .note{font-size:.78rem;color:var(--text-dim);margin-top:10px;}
+
+  /* ===== WHATSAPP / SUPPORT ===== */
+  .wa-card{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;
+    border:1px solid var(--panel-line);
+    border-radius:14px;
+    background:var(--panel);
+    padding:20px 22px;
+  }
+  .wa-card .l{max-width:36ch;}
+  .wa-card h4{margin:0 0 4px;font-size:1rem;}
+  .wa-card p{margin:0;font-size:.85rem;color:var(--text-mid);}
+  .wa-btn{
+    background:#25D366;
+    color:#06210f;
+    text-decoration:none;
+    font-weight:700;
+    font-size:.88rem;
+    padding:11px 20px;
+    border-radius:8px;
+    display:inline-flex;align-items:center;gap:8px;
+    white-space:nowrap;
+  }
+
+  footer{padding:34px 0 50px;text-align:center;}
+  footer p{color:var(--text-dim);font-size:.78rem;margin:4px 0;}
+  footer a{color:var(--eosin-soft);text-decoration:none;}
+
+  .sticky-cta{
+    position:fixed;left:0;right:0;bottom:0;
+    z-index:20;
+    background:rgba(16,26,46,.92);
+    backdrop-filter:blur(10px);
+    border-top:1px solid var(--panel-line);
+    padding:10px 16px;
+    display:none;
+    align-items:center;justify-content:space-between;
+    gap:12px;
+  }
+  .sticky-cta .price{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--text-hi);}
+  @media(max-width:640px){
+    .sticky-cta{display:flex;}
+    body{padding-bottom:64px;}
+  }
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <div class="wrap">
-    <div class="req-label">MLSCN Board Exam Prep · Chemical Pathology & Histopathology</div>
-    <h1>ChemPath <em>Mastery</em></h1>
-    <p class="hero-sub">A combined Clinical Chemistry &amp; Histopathology study guide, built directly from five years of MLSCN board papers — every answer opens with the definition, then walks through the principle, the procedure, and why it matters at the bench.</p>
-    <div class="cta-row">
-      <a href="#pricing" class="btn btn-primary">Get the guide — ₦<span class="placeholder">1,500</span></a>
-      <a href="#inside" class="btn btn-ghost">See what's inside</a>
+  <div class="stain-field"></div>
+  <div class="wrap hero-inner">
+    <div class="brand-row" style="justify-content:flex-end;">
+      <a class="tg-btn" href="https://t.me/Langausman" target="_blank" rel="noopener">
+        <span>✈</span> @Langausman
+      </a>
     </div>
-    <div class="hero-meta">
-      <span><b>Coverage</b> · 2020 – 2024 papers</span>
-      <span><b>Format</b> · PDF, delivered digitally</span>
-      <span><b>Built for</b> · MLSCN candidates in Nigeria</span>
+
+    <span class="eyebrow">MLSCN Board Exam Prep · 2020–2024</span>
+    <h1>Chem<em>Path</em> Mastery</h1>
+    <p class="hero-sub">The combined Clinical Chemistry &amp; Histopathology study guide built the way you'll actually be examined — definitions first, then the principle, procedure, and clinical significance the mark scheme is looking for.</p>
+
+    <div class="badge-row">
+      <span class="badge social"><span class="dot pulse"></span> Viewed by 100+ students</span>
+      <span class="badge">📄 60+ worked past questions</span>
+      <span class="badge">🔬 Define‑first method</span>
+    </div>
+
+    <div class="slide-card">
+      <div class="slide-glass">
+        <div class="slide-label">
+          <b>ChemPath Mastery</b>
+          Stain: H&amp;E · Ref: MLSCN 2020–2024
+        </div>
+      </div>
+      <div class="slide-meta">
+        <div class="price">₦1,500 <sup>one-time</sup></div>
+        <a href="#pay" class="cta">Get the guide →</a>
+      </div>
     </div>
   </div>
 </div>
 
-<section id="inside">
-  <div class="wrap">
-    <p class="eyebrow">How every answer is built</p>
-    <h2>One shape, every time — so you always know where to look.</h2>
-    <p class="lede">Board exams reward consistency. Every question in ChemPath Mastery follows the same four-stage answer, whether it's a one-line "define" or a full "discuss the principle and procedure."</p>
-    <div class="method-grid">
-      <div class="method-step">
-        <div class="num">01</div>
-        <h3>Definition</h3>
-        <p>The key term, stated first — a usable answer on its own if time is short in the hall.</p>
-      </div>
-      <div class="method-step">
-        <div class="num">02</div>
-        <h3>Principle / Discussion</h3>
-        <p>The reasoning or mechanism, in plain language rather than textbook jargon.</p>
-      </div>
-      <div class="method-step">
-        <div class="num">03</div>
-        <h3>Materials &amp; Procedure</h3>
-        <p>For bench techniques — materials listed first, then numbered steps in the order you'd actually perform them.</p>
-      </div>
-      <div class="method-step">
-        <div class="num">04</div>
-        <h3>Clinical Significance</h3>
-        <p>Why it matters for a real patient — usually the part examiners probe further in viva.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section>
   <div class="wrap">
-    <p class="eyebrow">Topic coverage</p>
-    <h2>Every past-question topic, sorted by subject.</h2>
-    <div class="tabs">
-      <span class="tab chem">Clinical Chemistry</span>
-      <span class="tab histo">Histopathology</span>
-    </div>
-    <div class="topic-cols">
-      <div class="topic-col chem">
-        <h4>Clinical Chemistry</h4>
-        <ul>
-          <li><span>01</span>Urea formation &amp; estimation (diacetyl monoxime, urease/Berthelot)</li>
-          <li><span>02</span>Blood glucose methods &amp; the Glucose Tolerance Test</li>
-          <li><span>03</span>Bilirubin metabolism &amp; the bilirubin cycle</li>
-          <li><span>04</span>Urinalysis, haematuria &amp; abnormal urine components</li>
-          <li><span>05</span>Quality control, standards &amp; control samples</li>
-          <li><span>06</span>Liver function tests &amp; renal threshold</li>
-          <li><span>07</span>Bence Jones protein detection</li>
-          <li><span>08</span>Beer's Law, Benedict's test &amp; occult blood</li>
-          <li><span>09</span>Flame photometry &amp; electrolytes</li>
-          <li><span>10</span>Buffers, distilled vs. deionized water</li>
-        </ul>
+    <h2 class="section-title">What's inside</h2>
+    <p class="section-note">Every answer opens with a definition, even when the question just says "discuss" or "list" — so you always have a usable answer, fast.</p>
+    <div class="feature-grid">
+      <div class="feature">
+        <span class="tag">Clinical Chemistry</span>
+        <h4>Paper 1 &amp; 2, 2020–2024</h4>
+        <p>Urea, glucose, bilirubin, LFTs, electrolytes, flame photometry, Beer's Law, QC and more — fully worked.</p>
       </div>
-      <div class="topic-col histo">
-        <h4>Histopathology</h4>
-        <ul>
-          <li><span>01</span>Tissue processing &amp; bone specimen handling</li>
-          <li><span>02</span>Fixatives — simple &amp; compound, with examples</li>
-          <li><span>03</span>Decalcification &amp; end-point testing</li>
-          <li><span>04</span>Ziehl-Neelsen &amp; Papanicolaou staining</li>
-          <li><span>05</span>Microtome types, care &amp; common faults</li>
-          <li><span>06</span>Embedding, mounting &amp; mould types</li>
-          <li><span>07</span>Autolysis, putrefaction &amp; prevention</li>
-          <li><span>08</span>Mordants, blueing &amp; regressive staining</li>
-          <li><span>09</span>Biopsy vs. autopsy; mitosis vs. meiosis</li>
-          <li><span>10</span>Automatic tissue processors &amp; vacuum impregnation</li>
-        </ul>
+      <div class="feature">
+        <span class="tag">Histopathology</span>
+        <h4>Paper 1 &amp; 2, 2020–2024</h4>
+        <p>Fixatives, decalcification, microtomy, embedding, staining, cytology — with materials and procedure listed step by step.</p>
+      </div>
+      <div class="feature">
+        <span class="tag">Examiner's Tips</span>
+        <h4>Mnemonics &amp; mark-scheme insight</h4>
+        <p>Built-in notes on what examiners are actually scoring, not just what's technically correct.</p>
+      </div>
+      <div class="feature">
+        <span class="tag">Revision Set</span>
+        <h4>Topic-based consolidated questions</h4>
+        <p>A final grouped pass across all five years, organised by theme instead of by year, for exam week.</p>
       </div>
     </div>
 
     <div class="sample-card">
-      <div class="tag">Sample page — Paper 2, 2020</div>
-      <h5>Q3(a): Quality Control</h5>
-      <span class="def-label">Definition</span>
-      <p>Quality Control (QC) is the planned system of statistical and procedural checks built into everyday testing to confirm that patient results can be trusted.</p>
-      <p><b>Discussion:</b> Control materials of known value run alongside patient samples every day, plotted on control charts and checked against rules (like Westgard's) that flag drifting or erratic results before they reach a patient's file. Most labs run at least a normal and an abnormal control level — some run all three.</p>
+      <div class="q">Q3(a) — Beer's Law</div>
+      <div class="def"><b>Definition —</b> Beer's Law (Beer–Lambert Law) is the principle underlying all colorimetric and spectrophotometric measurement: absorbed light increases as concentration and path length increase...</div>
     </div>
   </div>
 </section>
 
-<section>
+<section id="pay">
   <div class="wrap">
-    <p class="eyebrow">Why this guide</p>
-    <h2>Written the way you'll actually revise.</h2>
-    <p class="lede">Built around active recall and spaced repetition, not a wall of text to re-read once and forget. Comes with a 4-week study rhythm splitting Clinical Chemistry and Histopathology papers by week, so nothing gets left for the night before.</p>
-    <div class="stain-strip">
-      <div class="stain-row"><span class="stain-chip" style="background:#B5451B"></span><span class="stain-text"><b>Active recall</b> — cover the answer, reconstruct it, then check yourself against the page.</span></div>
-      <div class="stain-row"><span class="stain-chip" style="background:#1F4E5F"></span><span class="stain-text"><b>Spaced repetition</b> — 10–15 minutes revisiting last week before starting new material.</span></div>
-      <div class="stain-row"><span class="stain-chip" style="background:#C68E17"></span><span class="stain-text"><b>Timed past questions</b> — attempt full papers with a stopwatch, exactly as it feels in the hall.</span></div>
-    </div>
-  </div>
-</section>
+    <h2 class="section-title">Make payment</h2>
+    <p class="section-note">Bank transfer via Opay. Once paid, upload your screenshot below to unlock the download link instantly.</p>
 
-<section id="pricing">
-  <div class="wrap">
-    <p class="eyebrow">Get your copy</p>
-    <h2>Pay by transfer, send your screenshot, get the PDF.</h2>
-    <div class="price-card">
-      <div class="price-left">
-        <div class="price-amount"><span class="cur">₦</span><span class="placeholder">1,500</span></div>
-        <div class="price-note">One-time payment · PDF delivered to you directly · No subscription.</div>
-        <div class="bank-box">
-          <div><span class="k">Bank</span> — Opay</div>
-          <div><span class="k">Account name</span> — Usman Langa Maiyaki</div>
-          <div><span class="k">Account number</span> — 9134018584</div>
-        </div>
-        <div class="price-note">Transfer the exact amount above, then follow the steps to your right.</div>
+    <div class="pay-card">
+      <div class="pay-row">
+        <span class="k">Account Number</span>
+        <span class="v acct-num">
+          9134018584
+          <button class="copy-btn" id="copyBtn" onclick="copyAcct()">Copy</button>
+        </span>
       </div>
-      <div class="price-right">
-        <ul class="step-list">
-          <li>Make the transfer using the Opay details shown.</li>
-          <li>Take a screenshot of the successful transfer.</li>
-          <li>Send the screenshot on WhatsApp with your full name.</li>
-          <li>Your PDF is sent to you as soon as payment is confirmed — usually within a few hours.</li>
-        </ul>
-        <a href="https://wa.me/2349063566251?text=Hi%2C%20I%27ve%20paid%20for%20ChemPath%20Mastery%20and%20I%27m%20sending%20my%20payment%20screenshot." class="btn btn-primary" style="margin-top:14px;">Send screenshot on WhatsApp</a>
+      <div class="pay-row">
+        <span class="k">Bank</span>
+        <span class="v">Opay</span>
+      </div>
+      <div class="pay-row">
+        <span class="k">Account Name</span>
+        <span class="v">Usman Langa Maiyaki</span>
+      </div>
+      <div class="pay-row">
+        <span class="k">Amount</span>
+        <span class="v">₦1,500</span>
+      </div>
+    </div>
 
-        <div style="margin-top:22px; padding-top:18px; border-top:1px dashed var(--line);">
-          <label for="proof-upload" style="display:block; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:#555; margin-bottom:8px;">Upload your payment screenshot to unlock the download</label>
-          <input type="file" id="proof-upload" accept="image/*" style="font-family:'IBM Plex Sans', sans-serif; font-size:13px;">
-          <div id="download-locked" class="mono" style="margin-top:14px; font-size:12.5px; color:#999;">🔒 Download link unlocks once a screenshot is uploaded above.</div>
-          <a id="download-link" href="https://drive.google.com/uc?export=download&id=1J1q_IbDgZ6sKcBsVm14aLwXAxpxZ6kkh" class="btn btn-ghost" style="margin-top:10px; border-color:var(--ink); color:var(--ink); display:none;">Download PDF</a>
+    <ol class="steps">
+      <li><span class="n">1</span> Transfer ₦1,500 to the Opay account above.</li>
+      <li><span class="n">2</span> Take a screenshot of the successful transfer.</li>
+      <li><span class="n">3</span> Upload the screenshot below to unlock your download link.</li>
+    </ol>
+
+    <div class="unlock-card">
+      <label class="upload-zone" id="uploadZone">
+        <div class="icon">📤</div>
+        <div class="txt"><b>Tap to upload</b> your payment screenshot</div>
+        <div class="file-name" id="fileName"></div>
+        <input type="file" accept="image/*" id="fileInput" onchange="handleUpload(this)">
+      </label>
+
+      <div class="verify-strip" id="verifyStrip">
+        <span class="spinner"></span> Verifying screenshot…
+      </div>
+
+      <div class="unlock-panel" id="unlockPanel">
+        <div class="unlock-panel-inner">
+          <div class="ok">✓ Screenshot received</div>
+          <a class="download-btn" href="https://drive.google.com/file/d/1BQAEY1ck9qVU6KsTWy6pEs6UAzTUVH-q/view?usp=drivesdk" target="_blank" rel="noopener">⬇ Download ChemPath Mastery PDF</a>
+          <p class="note">Save this link — if it ever stops working, message the WhatsApp number below and we'll resend it.</p>
         </div>
-        <script>
-          document.getElementById('proof-upload').addEventListener('change', function(e){
-            if(e.target.files && e.target.files.length > 0){
-              document.getElementById('download-locked').style.display = 'none';
-              document.getElementById('download-link').style.display = 'inline-flex';
-            }
-          });
-        </script>
       </div>
     </div>
   </div>
@@ -518,35 +536,60 @@
 
 <section>
   <div class="wrap">
-    <p class="eyebrow">Questions</p>
-    <h2>Before you pay</h2>
-    <details open>
-      <summary>How do I receive the PDF after paying?</summary>
-      <p>Send your payment screenshot to the WhatsApp number above along with your full name. Once your payment is confirmed, the PDF is sent directly to you — usually within a few hours.</p>
-    </details>
-    <details>
-      <summary>Is this a physical book or a digital file?</summary>
-      <p>ChemPath Mastery is delivered as a digital PDF you can read on your phone, tablet, or laptop — no printing or shipping required.</p>
-    </details>
-    <details>
-      <summary>Which exam years does it cover?</summary>
-      <p>Past questions and worked answers from the 2020 through 2024 MLSCN Clinical Chemistry and Histopathology papers, cross-referenced against past-question sources.</p>
-    </details>
-    <details>
-      <summary>What if my payment isn't confirmed quickly?</summary>
-      <p>Message the WhatsApp number with your screenshot and full name — if you don't hear back within a reasonable time, follow up on the same chat.</p>
-    </details>
+    <div class="wa-card">
+      <div class="l">
+        <h4>Need help or verification?</h4>
+        <p>Send your screenshot directly on WhatsApp and we'll confirm manually.</p>
+      </div>
+      <a class="wa-btn" href="https://wa.me/2349063566251" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div><b>ChemPath Mastery</b> — MLSCN Clinical Chemistry &amp; Histopathology Combined Study Guide</div>
-    <div style="margin-top:6px;">A personal study companion, cross-referenced against past-question sources · Not affiliated with MLSCN</div>
+    <p>MLSCN Exam Prep by U.M. Langa</p>
+    <p>Telegram: <a href="https://t.me/Langausman" target="_blank" rel="noopener">@Langausman</a> · WhatsApp: <a href="https://wa.me/2349063566251" target="_blank" rel="noopener">0906 356 6251</a></p>
   </div>
 </footer>
 
-<a href="https://wa.me/2349063566251" class="float-wa">💬 WhatsApp</a>
+<div class="sticky-cta">
+  <span class="price">ChemPath Mastery — ₦1,500</span>
+  <a href="#pay" class="cta">Pay now</a>
+</div>
+
+<script>
+function copyAcct(){
+  navigator.clipboard.writeText('9134018584').then(function(){
+    var btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 1800);
+  });
+}
+
+function handleUpload(input){
+  if(!input.files || !input.files[0]) return;
+  var name = input.files[0].name;
+  var fn = document.getElementById('fileName');
+  fn.textContent = '✓ ' + name;
+  fn.style.display = 'block';
+
+  var strip = document.getElementById('verifyStrip');
+  var panel = document.getElementById('unlockPanel');
+  strip.style.display = 'flex';
+  panel.classList.remove('open');
+
+  setTimeout(function(){
+    strip.style.display = 'none';
+    panel.classList.add('open');
+    panel.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 1400);
+}
+</script>
 
 </body>
 </html>
